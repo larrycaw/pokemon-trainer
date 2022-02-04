@@ -6,8 +6,8 @@ import { Trainer } from "../models/trainer.model";
   providedIn: "root",
 })
 export class TrainerService {
-  // Hardcoded url
-  private url = "https://api-assignment-jt.herokuapp.com/trainers?username=ash";
+
+  private _url = "https://api-assignment-jt.herokuapp.com/trainers?=";
   private _error = "";
 
   private _trainer: Trainer[] = [];
@@ -18,8 +18,8 @@ export class TrainerService {
 
   constructor(private http: HttpClient) {}
 
-  public fetchTrainer(): void {
-    this.http.get<Trainer[]>(this.url).subscribe(
+  public fetchTrainer(username: string): void {
+    this.http.get<Trainer[]>(this._url+username).subscribe(
       (trainer: Trainer[]) => {
         this._trainer = trainer;
       },
@@ -30,5 +30,10 @@ export class TrainerService {
   }
   public getTrainer(): Trainer[] {
     return this.trainer;
+  }
+
+  public error(): string{
+    return this._error;
+    
   }
 }
