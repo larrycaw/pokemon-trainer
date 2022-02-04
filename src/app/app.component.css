@@ -1,0 +1,29 @@
+#header {
+    border-bottom: 2px solid #ffcd42;
+    text-align: left;
+    background-color: #ffc421;
+    height: 50px;
+    padding-left: 10px;
+    padding-top: 5px;
+    margin: 0px;
+}
+  
+#header img {
+    height: 40px;
+    display: inline-block;
+}
+
+#headerTitle {
+    color: #1f1f1f;
+    position: absolute;
+    padding: 10px;
+    font-size: 20px;
+}
+
+#container {
+    margin: 25px 0px 25px 0px;
+    display: inline-block;
+    padding: 5px 20px 5px 20px;
+    border-radius: 5px;
+    background-color: #eee;
+}
