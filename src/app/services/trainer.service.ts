@@ -6,7 +6,6 @@ import { Trainer } from "../models/trainer.model";
   providedIn: "root",
 })
 export class TrainerService {
-
   private _url = "https://api-assignment-jt.herokuapp.com/trainers?=";
   private _error = "";
 
@@ -19,21 +18,20 @@ export class TrainerService {
   constructor(private http: HttpClient) {}
 
   public fetchTrainer(username: string): void {
-    this.http.get<Trainer[]>(this._url+username).subscribe(
+    this.http.get<Trainer[]>(this._url + username).subscribe(
       (trainer: Trainer[]) => {
         this._trainer = trainer;
       },
       (error: HttpErrorResponse) => {
         this._error = error.message;
       }
-    ); 
+    );
   }
   public getTrainer(): Trainer[] {
     return this.trainer;
   }
 
-  public error(): string{
+  public error(): string {
     return this._error;
-    
   }
 }
