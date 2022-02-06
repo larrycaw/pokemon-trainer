@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { NgForm } from "@angular/forms";
 
 
 @Component({
@@ -13,5 +14,8 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
 
+  }
+  onLoginSubmit(form: NgForm): void{
+    console.log(form.value.username)
   }
 }

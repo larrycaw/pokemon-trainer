@@ -1,2 +1,11 @@
-<h1>landing</h1>
-
+<main>
+    <h1>Login to pokémon trainer</h1>
+    <form #loginForm="ngForm"(ngSubmit)="onLoginSubmit(loginForm)">
+        <input type="text" 
+            ngModel
+            #username="ngModel"
+            placeholder="What's your username?"
+            name="username">
+        <button type="submit">Login</button>
+    </form>
+</main>
