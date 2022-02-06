@@ -6,11 +6,18 @@
     <!-- Initiates loading of avatar data -->
     <div *ngIf="fetchAvatar()"></div>
   </div>
-  <!-- Slice defines how many pokemon to display -->
-  <div *ngFor="let item of pokemonList | slice: 0:10; let i = index">
-    <h2>{{ pokemonList[i].name }}</h2>
-    <div *ngIf="pokemonList[i].imgUrl !== undefined">
-      <img [src]="pokemonList[i].imgUrl" alt="" />
+
+  <div *ngFor="let item of pokemonSlice; let i = index">
+    <h2>{{ pokemonSlice[i].name }}</h2>
+    <div *ngIf="pokemonSlice[i].imgUrl !== undefined">
+      <img [src]="pokemonSlice[i].imgUrl" alt="" />
     </div>
+  </div>
+  <div *ngIf="start > 0">
+      <button (click)="prev()">Prev</button>
+
+  </div>
+  <div *ngIf="end < pokemonList.length">
+      <button (click)="next()">Next</button>
   </div>
 </div>

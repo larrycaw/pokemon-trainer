@@ -12,22 +12,31 @@ import { Pokemon } from "src/app/models/pokemon.model";
   selector: "app-catalogue-page",
   templateUrl: "./catalogue-page.component.html",
 })
+
+
 export class CataloguePageComponent implements OnInit {
-  constructor(private readonly pokemonService: PokemonService) {}
+  constructor(private readonly pokemonService: PokemonService) {
+  }
 
   ngOnInit(): void {
     this.pokemonService.fetchPokemonList();
   }
   //  Fetches url to avatar images for the first 10 pokemon
   fetchAvatar(): void {
-    for (let i = 0; i < 10; i++) {
+    for (let i = this.pokemonService.getStart(); i < this.pokemonService.getEnd(); i++) {
       const element = this.pokemonList[i];
       this.pokemonService.fetchPokemonAvatar(element.name);
     }
   }
 
+  // All pokemon
   get pokemonList(): Pokemon[] {
     return this.pokemonService.getPokemonList();
+  }
+
+  // A slice of all pokemon array
+  get pokemonSlice(): Pokemon[] {
+    return this.pokemonService.getPokemonSlice()
   }
 
   //  True if pokemon data has been loaded
@@ -38,5 +47,28 @@ export class CataloguePageComponent implements OnInit {
   // True if avatar url has been loaded
   get avatarLoaded(): boolean {
     return this.pokemonService.getAvatarLoaded();
+  }
+
+  //  Used for pagination, defines start of pokemonSlice
+  get start(): number {
+    return this.pokemonService.getStart();
+  }
+
+  // Used for pagination, defines end of pokemonSlice
+  get end(): number {
+    return this.pokemonService.getEnd();
+  }
+
+    // Pagination, shows previous page
+  prev(){
+    this.pokemonService.prev();
+    this.fetchAvatar();
+  }
+
+  // Pagination, shows next page
+  next(){
+    this.pokemonService.next();
+    this.fetchAvatar();
+
   }
 }
