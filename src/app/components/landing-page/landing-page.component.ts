@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
 import { LocalStorageService } from "src/app/services/local-storage.service";
+import { TrainerService } from "src/app/services/trainer.service";
 
 
 @Component({
@@ -13,16 +14,20 @@ import { LocalStorageService } from "src/app/services/local-storage.service";
 export class LandingPageComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
-    private router : Router
+    private router : Router,
+    private trainerService: TrainerService
   ) {}
 
   ngOnInit(): void {
-
+    //if user redirect to katalog
+    //console.log(this.localStorageService.getUser())
   }
   onLoginSubmit(form: NgForm): void{
     const {username} = form.value;
-    this.localStorageService.setUser(username)
-    //this.router.navigateByUrl("")
-    //console.log(this.localStorageService.getUser())
+    //save to api
+    this.trainerService.postTrainer(username);
+    this.localStorageService.setUser(username);
+    //this.router.navigateByUrl("") //to katalog
+    
   }
 }
