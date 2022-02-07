@@ -13,11 +13,11 @@ const routes: Routes = [{
 }, {
   path: 'trainers',
   component: TrainerPageComponent,
-  canActivate: [ AuthGuard ] // AuthGuard for Trainer Page (protects it from non-trainers)
+  //canActivate: [ AuthGuard ] // AuthGuard for Trainer Page (protects it from non-trainers)
 }, {
   path: 'catalogue',
   component: CataloguePageComponent,
-  canActivate: [ AuthGuard ] // AuthGuard for Pokémon Catalogue Page (protects it from non-trainers)
+  //canActivate: [ AuthGuard ] // AuthGuard for Pokémon Catalogue Page (protects it from non-trainers)
 }];
 
 @NgModule({
