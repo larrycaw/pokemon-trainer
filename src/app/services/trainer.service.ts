@@ -9,7 +9,7 @@ import { LocalStorageService } from "./local-storage.service";
 export class TrainerService {
   private _url = "https://api-assignment-jt.herokuapp.com/trainers?=";
   private _error = "";
-
+  private _user = {}; //TEST
   private _trainer: Trainer[] = [];
 
   get trainer(): Trainer[] {
@@ -42,14 +42,18 @@ export class TrainerService {
     });
   }
 
-  //Not checking if trainer exists
+  //post user to api if not already exist
   public postTrainer(username :string) {
-    const headers = this.createHeaders();
-    const body = { username: username, pokemon: [] };
-    this.http.post<any>('https://api-assignment-jt.herokuapp.com/trainers', 
-      body, { headers }).subscribe(data => {
+      this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).subscribe(data => {
+      if(data[0] == undefined){
+        //add to api
+        const headers = this.createHeaders();
+        const body = { username: username, pokemon: [] };
+        this.http.post<any>('https://api-assignment-jt.herokuapp.com/trainers', 
+        body, { headers }).subscribe(data => {
+        });
+      }  
     });
-
   }
 
 }
