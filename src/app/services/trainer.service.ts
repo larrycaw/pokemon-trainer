@@ -51,8 +51,19 @@ export class TrainerService {
         const body = { username: username, pokemon: [] };
         this.http.post<any>('https://api-assignment-jt.herokuapp.com/trainers', 
         body, { headers }).subscribe(data => {
+          //only if the user not exists in api
+          const user: Trainer = data;
+          localStorage.setItem("trainer", JSON.stringify(user));
+          //console.log(user)
         });
-      }  
+      }  else{
+        //try doing it in service
+          const user: Trainer = data[0];
+          localStorage.setItem("trainer", JSON.stringify(user));
+          //console.log(user)
+          //var test: string;
+          
+      }
     });
   }
 

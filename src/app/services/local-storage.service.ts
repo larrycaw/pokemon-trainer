@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
+import { Trainer } from '../models/trainer.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
-
   constructor() { }
-  setUser(username: string){
-    localStorage.setItem('username', username);
+  setUser(user: Trainer){
+    // currently setting this in trainerservice
 }
   getUser(){
-    let currentUser = localStorage.getItem('username');
-    return currentUser;
+    var test = localStorage.getItem("trainer")
+    console.log(JSON.parse(test!))
+    return JSON.parse(test!)
 }
+//not done
   clearLocalStorage(){
     localStorage.clear();
 }

@@ -25,10 +25,11 @@ export class LandingPageComponent implements OnInit {
   onLoginSubmit(form: NgForm): void{
     const {username} = form.value;
     //save to api
-    //console.log(this.trainerService.fetchTrainer(username))
     this.trainerService.postTrainer(username);
-    this.localStorageService.setUser(username);
-    this.router.navigateByUrl("/catalogue") //to katalog
+    var test = this.localStorageService.getUser()
+    //console.log(test.username)
+    //this.localStorageService.setUser(username);
+    this.router.navigateByUrl("/catalogue") //to catalouge
     
   }
 }
