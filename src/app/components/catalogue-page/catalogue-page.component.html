@@ -1,2 +1,28 @@
+<<<<<<< HEAD
 <h1>cataloguecataloguecataloguecataloguecataloguecataloguecataloguecataloguecataloguecataloguecataloguecataloguecataloguecataloguecataloguecatalogue</h1>
 <h2 *ngIf="pokemonList[0]">{{ pokemonList[0].name }}</h2>
+=======
+<h1>catalogue</h1>
+<!-- Checks wether pokemons have been fetched -->
+<div *ngIf="pokemonList[0]">
+  <!-- Checks if avatar data has already been loaded to avoid infinite loop -->
+  <div *ngIf="!avatarLoaded">
+    <!-- Initiates loading of avatar data -->
+    <div *ngIf="fetchAvatar()"></div>
+  </div>
+
+  <div *ngFor="let item of pokemonSlice; let i = index">
+    <h2>{{ pokemonSlice[i].name }}</h2>
+    <div *ngIf="pokemonSlice[i].imgUrl !== undefined">
+      <img [src]="pokemonSlice[i].imgUrl" alt="" />
+    </div>
+  </div>
+  <div *ngIf="start > 0">
+      <button (click)="prev()">Prev</button>
+
+  </div>
+  <div *ngIf="end < pokemonList.length">
+      <button (click)="next()">Next</button>
+  </div>
+</div>
+>>>>>>> c239fc4726ec8021e8d48faf1d92a91aa2b5a949
