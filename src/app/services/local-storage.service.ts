@@ -6,13 +6,15 @@ import { Injectable } from '@angular/core';
 export class LocalStorageService {
 
   constructor() { }
-  setUser(username: string){
-    localStorage.setItem('username', username);
+  private _username: string ="";
+
+  set username(username: string){
+    this._username = username;
 }
-  getUser(){
-    let currentUser = localStorage.getItem('username');
-    return currentUser;
+  get username(): string{
+    return this._username;
 }
+//change
   clearLocalStorage(){
     localStorage.clear();
 }

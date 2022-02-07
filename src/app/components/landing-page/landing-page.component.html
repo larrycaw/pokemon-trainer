@@ -5,7 +5,15 @@
             ngModel
             #username="ngModel"
             placeholder="What's your username?"
-            name="username">
-        <button type="submit">Login</button>
+            name="username"
+            minlength="2"
+            required>
+        <button 
+            [disabled]="loginForm.invalid"
+            type="submit">Login</button>
     </form>
+    <div id="userErrors"
+        *ngIf="username.invalid && (username.touched || username.dirty)">
+        Invalid username
+    </div>
 </main>
