@@ -14,12 +14,11 @@
         <img [src]="pokemonSlice[i].imgUrl" alt="" />
       </div>
     </div>
-    <div *ngIf="start > 0">
-        <button (click)="prev()">Prev</button>
-  
-    </div>
-    <div *ngIf="end < pokemonList.length">
-      <button (click)="next()">Next</button>
-    </div>
+  </div>
+  <div *ngIf="end < pokemonList.length">
+    <button (click)="next()">Next</button>
+  </div>
+  <div *ngIf="start > 0">
+      <button (click)="prev()">Prev</button>
   </div>
 </div>

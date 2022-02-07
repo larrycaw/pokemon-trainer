@@ -1,6 +1,7 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Trainer } from "../models/trainer.model";
+import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
   providedIn: "root",
@@ -15,7 +16,7 @@ export class TrainerService {
     return this._trainer;
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private localStorageService: LocalStorageService) {}
 
   public fetchTrainer(username: string): void {
     this.http.get<Trainer[]>(this._url + username).subscribe(
@@ -34,4 +35,21 @@ export class TrainerService {
   public error(): string {
     return this._error;
   }
+  private createHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'x-api-key': 'apiKey',
+    });
+  }
+
+  //Not checking if trainer exists
+  public postTrainer(username :string) {
+    const headers = this.createHeaders();
+    const body = { username: username, pokemon: [] };
+    this.http.post<any>('https://api-assignment-jt.herokuapp.com/trainers', 
+      body, { headers }).subscribe(data => {
+    });
+
+  }
+
 }

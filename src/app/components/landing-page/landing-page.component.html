@@ -1,2 +1,20 @@
-<h1>landing</h1>
+<main>
+    <h1>Login to pokémon trainer</h1>
+    <form #loginForm="ngForm"(ngSubmit)="onLoginSubmit(loginForm)">
+        <input type="text" 
+            ngModel
+            #username="ngModel"
+            placeholder="What's your username?"
+            name="username"
+            minlength="2"
+            required>
+        <button 
+            [disabled]="loginForm.invalid"
+            type="submit">Login</button>
+    </form>
+    <div id="userErrors"
+        *ngIf="username.invalid && (username.touched || username.dirty)">
+        Invalid username
+    </div>
+</main>
 

@@ -8,3 +8,7 @@ html, body {
     background-color: #232425;
     color: #f2f3f4;
 }
+
+div {
+    margin: 15px;
+}
