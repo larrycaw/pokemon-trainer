@@ -34,20 +34,22 @@ export class PokemonService {
 
   //   Fetches all Pokemon, but response contains NO DETAIL DATA. Only name of Pokemon and URL to detail request.
   public fetchPokemonList(): void {
-    this.http
-      .get<PokemonResponse>(this._url)
-      .pipe(
-        map((response: PokemonResponse) => {
-          return response.results;
-        })
-      )
-      .subscribe({
-        next: (pokemon: Pokemon[]) => {
-          this._pokemonList = pokemon;
-          this._loaded = true;
-          this._pokemonSlice = this._pokemonList.slice(this._start, this._end);
-        },
-      });
+    if (this._pokemonList.length < 1) {
+      this.http
+        .get<PokemonResponse>(this._url)
+        .pipe(
+          map((response: PokemonResponse) => {
+            return response.results;
+          })
+        )
+        .subscribe({
+          next: (pokemon: Pokemon[]) => {
+            this._pokemonList = pokemon;
+            this._loaded = true;
+            this._pokemonSlice = this._pokemonList.slice(this._start, this._end);
+          },
+        });
+    }
   }
   // Fetches url for image of pokemon and sets it in the pokemonList
   public fetchPokemonAvatar(name: string): void {
@@ -68,6 +70,17 @@ export class PokemonService {
             }
           },
         });
+    }
+  }
+
+  public setOwned(nameArray: string[]): void {
+    for (let i = 0; i < nameArray.length; i++) {
+      const element = nameArray[i];
+      let pokeTemp = this._pokemonList.find(poke => poke.name == element)
+      if (pokeTemp) {
+        pokeTemp.owned = true;
+      }
+      
     }
   }
 

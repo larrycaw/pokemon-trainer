@@ -2,6 +2,7 @@ export interface Pokemon {
   name: string;
   url: string;
   imgUrl: string;
+  owned: boolean;
 }
 
 export interface PokemonResponse {

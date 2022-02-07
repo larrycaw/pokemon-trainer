@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { PokemonService } from "../../services/pokemon.service";
 import { Pokemon } from "src/app/models/pokemon.model";
+import { TrainerService } from "src/app/services/trainer.service";
 
 @Component({
   selector: "app-catalogue-page",
@@ -16,7 +17,11 @@ import { Pokemon } from "src/app/models/pokemon.model";
 
 
 export class CataloguePageComponent implements OnInit {
-  constructor(private readonly pokemonService: PokemonService) {
+  constructor(
+    private readonly pokemonService: PokemonService,
+    private readonly trainerService: TrainerService
+
+    ) {
   }
 
   ngOnInit(): void {
@@ -28,6 +33,8 @@ export class CataloguePageComponent implements OnInit {
       const element = this.pokemonList[i];
       this.pokemonService.fetchPokemonAvatar(element.name);
     }
+    this.owned();
+
   }
 
   // All pokemon
@@ -71,5 +78,20 @@ export class CataloguePageComponent implements OnInit {
     this.pokemonService.next();
     this.fetchAvatar();
 
+  }
+
+  // owned(){
+  //   if (this.trainerService.getTrainer()[0] !== undefined) {
+  //     this.pokemonService.setOwned(this.trainerService.getTrainer()[0].pokemon) 
+  //   }
+  // }
+
+  // Test method, does not implement check
+    owned(){
+    // this.pokemonService.setOwned(["bulbasaur","squirtle"])
+  }
+
+  catch(name: string){
+    this.pokemonService.setOwned([name])
   }
 }

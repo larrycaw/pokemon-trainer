@@ -12,6 +12,10 @@
       <h2>{{ pokemonSlice[i].name }}</h2>
       <div *ngIf="pokemonSlice[i].imgUrl !== undefined">
         <img [src]="pokemonSlice[i].imgUrl" alt="" />
+        <p *ngIf="pokemonSlice[i].owned">Owned</p>
+        <div *ngIf="!pokemonSlice[i].owned">
+          <button (click)="catch(pokemonSlice[i].name)">Catch!</button>
+        </div>
       </div>
     </div>
   </div>
