@@ -1,0 +1,14 @@
+#pokemons {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+}
+
+#head {
+	display: grid;
+	grid-template-columns: 60% 40%;
+}
+
+#head button {
+	height: 2em;
+	margin: auto;
+}
