@@ -16,7 +16,8 @@ export class PokemonService {
   private _url = "https://pokeapi.co/api/v2/pokemon?limit=1200";
   private _error = "";
   private _loaded = false;
-  private _AvatarLoaded = false;
+  private _avatarLoaded = false;
+  private _ownedLoaded = false;
 
   // Start and end index for pokemonSlice
   private _start = 0;
@@ -66,23 +67,34 @@ export class PokemonService {
           next: (sprite: Sprite) => {
             if (poke !== undefined) {
               poke.imgUrl = sprite.front_default;
-              this._AvatarLoaded = true;
+              this._avatarLoaded = true;
             }
           },
         });
     }
   }
 
-  public setOwned(nameArray: string[]): void {
-    for (let i = 0; i < nameArray.length; i++) {
-      const element = nameArray[i];
-      let pokeTemp = this._pokemonList.find(poke => poke.name == element)
-      if (pokeTemp) {
-        pokeTemp.owned = true;
-      }
-      
+  public initOwned(nameArray: string[]): void {
+    console.log("Hello from pokeservice")
+    this._ownedLoaded = true;
+      for (let i = 0; i < nameArray.length; i++) {
+        const element = nameArray[i];
+        let pokeTemp = this._pokemonList.find(poke => poke.name == element)
+        if (pokeTemp) {
+          pokeTemp.owned = true;
+        }
     }
   }
+
+  // public getOwned(): Pokemon[] {
+  //   let ownedPokemon
+  //   for (let i = 0; i < this._pokemonList.length; i++) {
+  //     const element = this._pokemonList[i];
+
+      
+ 
+  //   }
+  // }
 
   public getPokemonList(): Pokemon[] {
     return this._pokemonList;
@@ -101,7 +113,11 @@ export class PokemonService {
   }
 
   public getAvatarLoaded(): boolean {
-    return this._AvatarLoaded;
+    return this._avatarLoaded;
+  }
+
+  public getOwnedLoaded(): boolean {
+    return this._ownedLoaded;
   }
 
   public error(): string {

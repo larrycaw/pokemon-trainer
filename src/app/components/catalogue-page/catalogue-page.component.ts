@@ -8,6 +8,7 @@ import {
 import { PokemonService } from "../../services/pokemon.service";
 import { Pokemon } from "src/app/models/pokemon.model";
 import { TrainerService } from "src/app/services/trainer.service";
+import { Trainer } from "src/app/models/trainer.model"
 import { Router } from "@angular/router";
 
 @Component({
@@ -34,7 +35,7 @@ export class CataloguePageComponent implements OnInit {
       const element = this.pokemonList[i];
       this.pokemonService.fetchPokemonAvatar(element.name);
     }
-    this.owned();
+    this.fetchOwned();
 
   }
 
@@ -58,6 +59,11 @@ export class CataloguePageComponent implements OnInit {
     return this.pokemonService.getAvatarLoaded();
   }
 
+  get ownedLoaded(): boolean {
+    console.log("ownedLoaded triggered")
+    return this.pokemonService.getOwnedLoaded();
+  }
+
   //  Used for pagination, defines start of pokemonSlice
   get start(): number {
     return this.pokemonService.getStart();
@@ -66,6 +72,10 @@ export class CataloguePageComponent implements OnInit {
   // Used for pagination, defines end of pokemonSlice
   get end(): number {
     return this.pokemonService.getEnd();
+  }
+
+  get trainer(): Trainer {
+    return this.trainerService.getTrainer();
   }
 
     // Pagination, shows previous page
@@ -88,12 +98,19 @@ export class CataloguePageComponent implements OnInit {
   // }
 
   // Test method, does not implement check
-    owned(){
-    // this.pokemonService.setOwned(["bulbasaur","squirtle"])
+    fetchOwned(){
+      console.log(this.trainerService.getTrainer())
+      if (this.trainerService.getTrainer() !== undefined) {
+            this.pokemonService.initOwned(this.trainerService.getTrainer().pokemon) 
+          } else
+          this.pokemonService.initOwned(["none"])
   }
 
   catch(name: string){
-    this.pokemonService.setOwned([name])
+    this.trainerService.AddTrainerPokemon(name);
+    console.log(this.trainerService.getTrainer().pokemon);
+    this.pokemonService.initOwned(this.trainerService.getTrainer().pokemon);
+    // this.pokemonService.initOwned([name]);
   }
 
   toTrainer(): void {

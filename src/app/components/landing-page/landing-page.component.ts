@@ -21,6 +21,7 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {
     //if user redirect to catalouge
     if(this.localStorageService.getUser()!=null){
+      this.trainerService.fetchTrainer(this.localStorageService.getUser().username)
       this.router.navigateByUrl("/catalogue");
     }
   }
