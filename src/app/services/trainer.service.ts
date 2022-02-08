@@ -9,7 +9,6 @@ import { LocalStorageService } from "./local-storage.service";
 export class TrainerService {
   private _url = "https://api-assignment-jt.herokuapp.com/trainers?=";
   private _error = "";
-  private _user = {}; //TEST
   private _trainer: Trainer[] = [];
 
   get trainer(): Trainer[] {
@@ -46,25 +45,17 @@ export class TrainerService {
   public postTrainer(username :string) {
       this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).subscribe(data => {
       if(data[0] == undefined){
-        //add to api
+        //add to api only if the user not exists in api
         const headers = this.createHeaders();
         const body = { username: username, pokemon: [] };
         this.http.post<any>('https://api-assignment-jt.herokuapp.com/trainers', 
         body, { headers }).subscribe(data => {
-          //only if the user not exists in api
-          const user: Trainer = data;
-          localStorage.setItem("trainer", JSON.stringify(user));
-          //console.log(user)
+          this.localStorageService.setUser(data)
         });
-      }  else{
-        //try doing it in service
-          const user: Trainer = data[0];
-          localStorage.setItem("trainer", JSON.stringify(user));
-          //console.log(user)
-          //var test: string;
-          
+      } 
+      else{
+        this.localStorageService.setUser(data[0])
       }
     });
   }
-
 }

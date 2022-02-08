@@ -19,17 +19,16 @@ export class LandingPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    //if user redirect to katalog
-    //console.log(this.localStorageService.getUser())
+    //if user redirect to catalouge
+    if(this.localStorageService.getUser()!=null){
+      this.router.navigateByUrl("/catalogue");
+    }
   }
   onLoginSubmit(form: NgForm): void{
     const {username} = form.value;
     //save to api
+    //in trainer service local storage sets
     this.trainerService.postTrainer(username);
-    var test = this.localStorageService.getUser()
-    //console.log(test.username)
-    //this.localStorageService.setUser(username);
-    this.router.navigateByUrl("/catalogue") //to catalouge
-    
+    this.router.navigateByUrl("/catalogue") 
   }
 }

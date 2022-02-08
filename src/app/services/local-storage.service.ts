@@ -6,15 +6,17 @@ import { Trainer } from '../models/trainer.model';
 })
 export class LocalStorageService {
   constructor() { }
+
   setUser(user: Trainer){
-    // currently setting this in trainerservice
+    localStorage.setItem("trainer", JSON.stringify(user));
 }
+
   getUser(){
-    var test = localStorage.getItem("trainer")
-    console.log(JSON.parse(test!))
-    return JSON.parse(test!)
+    const user = localStorage.getItem("trainer")
+    //console.log(JSON.parse(test!))
+    return JSON.parse(user!)
 }
-//not done
+
   clearLocalStorage(){
     localStorage.clear();
 }
