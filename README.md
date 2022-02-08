@@ -2,9 +2,13 @@
 
 ## Table of contents
 [Description](https://gitlab.com/HEINF/pokemon-trainer#description)
+
 [Installation](https://gitlab.com/HEINF/pokemon-trainer#installation)
+
 [Usage](https://gitlab.com/HEINF/pokemon-trainer#usage)
+
 [Maintainers](https://gitlab.com/HEINF/pokemon-trainer#maintainers)
+
 [Project status](https://gitlab.com/HEINF/pokemon-trainer#project-status)
 
 ## Description
