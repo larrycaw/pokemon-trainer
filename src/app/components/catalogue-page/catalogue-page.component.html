@@ -12,7 +12,7 @@
   
   <h2>The Pokémon Catalogue</h2>
   <div id="pokemons">
-    <div id="pokemon" *ngFor="let item of pokemonSlice; let i = index">
+    <div id="pokemoncontainer" *ngFor="let item of pokemonSlice; let i = index">
       <h2>{{ pokemonSlice[i].name }}</h2>
       <div *ngIf="pokemonSlice[i].imgUrl !== undefined">
         <img [src]="pokemonSlice[i].imgUrl" alt="" />
