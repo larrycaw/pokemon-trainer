@@ -40,7 +40,7 @@ export class TrainerService {
       'x-api-key': 'apiKey',
     });
   }
-
+  //check if its possible to not get deleted to local storage
   //post user to api if not already exist
   public postTrainer(username :string) {
       this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).subscribe(data => {
@@ -54,10 +54,12 @@ export class TrainerService {
         });
       } 
       else{
+        console.log(data.Type)
         this.localStorageService.setUser(data[0])
       }
     });
   }
+    //guess you could get the user from localstorage here instead of when calling it?
   public AddTrainerPokemon(username :string, addedPokemon :string) {
     this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).
       subscribe(trainer => {
@@ -70,5 +72,25 @@ export class TrainerService {
           this.localStorageService.setUser(data)
           });
     });
+  }
+  //guess you could get the user from localstorage here instead of when calling it?
+  //delete from api and update local storage
+  public DeleteTrainerPokemon(username: string, deletedPokemon: string){
+    this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).
+      subscribe(trainer => {
+        let pokemon = trainer[0].pokemon; 
+        for(let i=0;i<pokemon.length; i++){ 
+          if(pokemon[i] == deletedPokemon){ 
+            pokemon.splice([i], 1);
+            //here you could push the deleted pokemon to array and add in api
+            const headers = this.createHeaders();
+            const body = { pokemon };  
+            this.http.patch<any>(`https://api-assignment-jt.herokuapp.com/trainers/${trainer[0].id}`, 
+            body, { headers }).subscribe(data => {
+                this.localStorageService.setUser(data)
+              });
+          }
+        }
+      })
   }
 }
