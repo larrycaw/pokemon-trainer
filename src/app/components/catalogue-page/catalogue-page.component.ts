@@ -8,6 +8,7 @@ import {
 import { PokemonService } from "../../services/pokemon.service";
 import { Pokemon } from "src/app/models/pokemon.model";
 import { TrainerService } from "src/app/services/trainer.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-catalogue-page",
@@ -19,8 +20,8 @@ import { TrainerService } from "src/app/services/trainer.service";
 export class CataloguePageComponent implements OnInit {
   constructor(
     private readonly pokemonService: PokemonService,
-    private readonly trainerService: TrainerService
-
+    private readonly trainerService: TrainerService,
+    private readonly router: Router
     ) {
   }
 
@@ -93,5 +94,9 @@ export class CataloguePageComponent implements OnInit {
 
   catch(name: string){
     this.pokemonService.setOwned([name])
+  }
+
+  toTrainer(): void {
+    this.router.navigateByUrl("/trainers");
   }
 }

@@ -1,4 +1,7 @@
-<h1>Catalogue</h1>
+<div id="head">
+  <h1>Catalogue</h1>
+  <button (click)="toTrainer()">To Trainer →</button>
+</div>
 <!-- Checks wether pokemons have been fetched -->
 <div *ngIf="pokemonList[0]">
   <!-- Checks if avatar data has already been loaded to avoid infinite loop -->
@@ -7,6 +10,7 @@
     <div *ngIf="fetchAvatar()"></div>
   </div>
   
+  <h2>The Pokémon Catalogue</h2>
   <div id="pokemons">
     <div id="pokemon" *ngFor="let item of pokemonSlice; let i = index">
       <h2>{{ pokemonSlice[i].name }}</h2>
