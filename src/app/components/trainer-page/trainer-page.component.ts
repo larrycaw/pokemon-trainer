@@ -37,15 +37,13 @@ export class TrainerPageComponent implements OnInit {
   }
   
   ngOnInit(): void {
-
+    //get trainers collection of pokemon
     for (let i = 0; i < this.pokemonList.length; i++) {
       const element = this.pokemonList[i];
       if (element.owned) {
         this.pokemonService.fetchPokemonAvatar(element.name)
       }
-      
     }
-
   }
 
   //  Fetches url to avatar images for the first 10 pokemon
@@ -55,18 +53,17 @@ export class TrainerPageComponent implements OnInit {
       this.pokemonService.fetchPokemonAvatar(element.name);
     }
   }
-
+  //delete pokemon from trainers collection
   deletePokemon(name: string): void {
     this.trainerService.DeleteTrainerPokemon(name);
     this.pokemonService.removePokemon(name);
   }
-
-
-
+  
+  //navigates to catalouge page
   toCatalogue(): void {
     this.router.navigateByUrl("/catalogue");
   }
-
+//clears local storgare and navigates to laning page
   logout(){
     this.localStorage.clearLocalStorage();
     this.router.navigateByUrl("/");

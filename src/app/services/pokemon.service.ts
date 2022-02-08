@@ -74,6 +74,7 @@ export class PokemonService {
     }
   }
 
+  //updates list of trainers pokemon
   public initOwned(nameArray: string[]): void {
     this._ownedLoaded = true;
       for (let i = 0; i < nameArray.length; i++) {
@@ -85,6 +86,7 @@ export class PokemonService {
     }
   }
 
+  //removes pokemon from list of all pokemon
   public removePokemon(name: string) {
     for (let i = 0; i < this._pokemonList.length; i++) {
       const element = this._pokemonList[i];
@@ -94,16 +96,6 @@ export class PokemonService {
       
     }
   }
-
-  // public getOwned(): Pokemon[] {
-  //   let ownedPokemon
-  //   for (let i = 0; i < this._pokemonList.length; i++) {
-  //     const element = this._pokemonList[i];
-
-      
- 
-  //   }
-  // }
 
   public getPokemonList(): Pokemon[] {
     return this._pokemonList;

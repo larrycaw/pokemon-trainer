@@ -92,7 +92,7 @@ export class CataloguePageComponent implements OnInit {
 
   }
 
-
+    //Get trainers pokemon
     fetchOwned(){
       if (this.trainerService.getTrainer() !== undefined) {
             this.pokemonService.initOwned(this.trainerService.getTrainer().pokemon) 
@@ -100,11 +100,13 @@ export class CataloguePageComponent implements OnInit {
           this.pokemonService.initOwned(["none"])
   }
 
+  //clears local storage and redirects to landing page
   logout(){
     this.localStorageService.clearLocalStorage();
     this.router.navigateByUrl("/");
   }
 
+  //collect pokemon to trainer in api
   catch(name: string){
     this.trainerService.AddTrainerPokemon(name);
     this.pokemonService.initOwned(this.trainerService.getTrainer().pokemon);
