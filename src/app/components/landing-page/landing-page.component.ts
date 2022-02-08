@@ -29,6 +29,8 @@ export class LandingPageComponent implements OnInit {
     //save to api
     //in trainer service local storage sets
     this.trainerService.postTrainer(username);
+    //this.trainerService.AddTrainerPokemon(username, "mew")
+    //this.trainerService.DeleteTrainerPokemon(username, "mew")
     this.router.navigateByUrl("/catalogue") 
   }
 }

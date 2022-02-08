@@ -54,6 +54,7 @@ export class TrainerService {
         });
       } 
       else{
+        console.log(data.Type)
         this.localStorageService.setUser(data[0])
       }
     });
