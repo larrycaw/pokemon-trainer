@@ -8,6 +8,7 @@ import { CataloguePageComponent } from './components/catalogue-page/catalogue-pa
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { TrainerPageComponent } from './components/trainer-page/trainer-page.component';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
