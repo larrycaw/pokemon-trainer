@@ -75,7 +75,6 @@ export class PokemonService {
   }
 
   public initOwned(nameArray: string[]): void {
-    console.log("Hello from pokeservice")
     this._ownedLoaded = true;
       for (let i = 0; i < nameArray.length; i++) {
         const element = nameArray[i];

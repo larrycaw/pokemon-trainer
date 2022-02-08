@@ -67,7 +67,8 @@ export class TrainerPageComponent implements OnInit {
     this.router.navigateByUrl("/catalogue");
   }
 
-  catch(name: string){
-    // this.pokemonService.setOwned([name])
+  logout(){
+    this.localStorage.clearLocalStorage();
+    this.router.navigateByUrl("/");
   }
 }

@@ -8,6 +8,7 @@ import {
 import { PokemonService } from "../../services/pokemon.service";
 import { Pokemon } from "src/app/models/pokemon.model";
 import { TrainerService } from "src/app/services/trainer.service";
+import { LocalStorageService } from "src/app/services/local-storage.service";
 import { Trainer } from "src/app/models/trainer.model"
 import { Router } from "@angular/router";
 
@@ -22,7 +23,8 @@ export class CataloguePageComponent implements OnInit {
   constructor(
     private readonly pokemonService: PokemonService,
     private readonly trainerService: TrainerService,
-    private readonly router: Router
+    private readonly router: Router,
+    private readonly localStorageService: LocalStorageService
     ) {
   }
 
@@ -60,7 +62,6 @@ export class CataloguePageComponent implements OnInit {
   }
 
   get ownedLoaded(): boolean {
-    console.log("ownedLoaded triggered")
     return this.pokemonService.getOwnedLoaded();
   }
 
@@ -91,24 +92,21 @@ export class CataloguePageComponent implements OnInit {
 
   }
 
-  // owned(){
-  //   if (this.trainerService.getTrainer()[0] !== undefined) {
-  //     this.pokemonService.setOwned(this.trainerService.getTrainer()[0].pokemon) 
-  //   }
-  // }
 
-  // Test method, does not implement check
     fetchOwned(){
-      console.log(this.trainerService.getTrainer())
       if (this.trainerService.getTrainer() !== undefined) {
             this.pokemonService.initOwned(this.trainerService.getTrainer().pokemon) 
           } else
           this.pokemonService.initOwned(["none"])
   }
 
+  logout(){
+    this.localStorageService.clearLocalStorage();
+    this.router.navigateByUrl("/");
+  }
+
   catch(name: string){
     this.trainerService.AddTrainerPokemon(name);
-    console.log(this.trainerService.getTrainer().pokemon);
     this.pokemonService.initOwned(this.trainerService.getTrainer().pokemon);
     // this.pokemonService.initOwned([name]);
   }
