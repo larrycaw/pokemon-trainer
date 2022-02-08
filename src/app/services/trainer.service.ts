@@ -58,4 +58,17 @@ export class TrainerService {
       }
     });
   }
+  public AddTrainerPokemon(username :string, addedPokemon :string) {
+    this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).
+      subscribe(trainer => {
+        let pokemon = trainer[0].pokemon;
+        pokemon.push(addedPokemon) //push the pokemons name
+        const headers = this.createHeaders();
+        const body = { pokemon };
+        this.http.patch<any>(`https://api-assignment-jt.herokuapp.com/trainers/${trainer[0].id}`, 
+        body, { headers }).subscribe(data => {
+          this.localStorageService.setUser(data)
+          });
+    });
+  }
 }
