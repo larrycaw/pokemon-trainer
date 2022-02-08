@@ -9,27 +9,40 @@ import { LocalStorageService } from "./local-storage.service";
 export class TrainerService {
   private _url = "https://api-assignment-jt.herokuapp.com/trainers?=";
   private _error = "";
-  private _trainer: Trainer[] = [];
+  // private _trainer: Trainer[] = [];
+  private _trainer: Trainer | any;
 
-  get trainer(): Trainer[] {
+  get trainer(): Trainer {
     return this._trainer;
   }
 
   constructor(private http: HttpClient, private localStorageService: LocalStorageService) {}
 
   public fetchTrainer(username: string): void {
-    this.http.get<Trainer[]>(this._url + username).subscribe(
-      (trainer: Trainer[]) => {
-        this._trainer = trainer;
-      },
-      (error: HttpErrorResponse) => {
-        this._error = error.message;
-      }
-    );
+    if (this.localStorageService.getUser().username == username) {
+      this._trainer = this.localStorageService.getUser();
+      console.log(this.localStorageService.getUser())
+    } else {
+      this.http.get<Trainer[]>(this._url + username).subscribe(
+        (trainer: Trainer[]) => {
+          this._trainer = trainer[0];
+          this.localStorageService.setUser(trainer[0]);
+        },
+        (error: HttpErrorResponse) => {
+          this._error = error.message;
+        }
+      );
+    }
+
   }
-  public getTrainer(): Trainer[] {
-    return this.trainer;
+  public getTrainer(): Trainer {
+    return this._trainer;
   }
+
+  public setTrainer(trainer: Trainer): void {
+    this._trainer = trainer;
+  }
+  
 
   public error(): string {
     return this._error;
@@ -51,31 +64,45 @@ export class TrainerService {
         this.http.post<any>('https://api-assignment-jt.herokuapp.com/trainers', 
         body, { headers }).subscribe(data => {
           this.localStorageService.setUser(data)
+          this.setTrainer(this.localStorageService.getUser());
         });
       } 
       else{
         console.log(data.Type)
         this.localStorageService.setUser(data[0])
+        this.setTrainer(this.localStorageService.getUser());
       }
     });
   }
     //guess you could get the user from localstorage here instead of when calling it?
-  public AddTrainerPokemon(username :string, addedPokemon :string) {
-    this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).
-      subscribe(trainer => {
-        let pokemon = trainer[0].pokemon;
-        pokemon.push(addedPokemon) //push the pokemons name
-        const headers = this.createHeaders();
-        const body = { pokemon };
-        this.http.patch<any>(`https://api-assignment-jt.herokuapp.com/trainers/${trainer[0].id}`, 
-        body, { headers }).subscribe(data => {
-          this.localStorageService.setUser(data)
-          });
-    });
+  public AddTrainerPokemon(addedPokemon :string) {
+    let trainer = this.localStorageService.getUser()
+    trainer.pokemon.push(addedPokemon);
+    this.localStorageService.setUser(trainer);
+    this.setTrainer(trainer);
+    
+    let username = this.localStorageService.getUser().username;
+
+    let pokemon = this.localStorageService.getUser().pokemon;
+    const headers = this.createHeaders();
+    const body = { pokemon };
+    this.http.patch<any>(`https://api-assignment-jt.herokuapp.com/trainers/${trainer.id}`, 
+    body, { headers }).subscribe(data => {
+      this.localStorageService.setUser(data)
+      });
+
+    // this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).
+    //   subscribe(trainer => {
+    //     let pokemon = trainer[0].pokemon;
+    //     pokemon.push(addedPokemon) //push the pokemons name
+
+    // });
+
   }
   //guess you could get the user from localstorage here instead of when calling it?
   //delete from api and update local storage
-  public DeleteTrainerPokemon(username: string, deletedPokemon: string){
+  public DeleteTrainerPokemon(deletedPokemon: string){
+    let username = this.localStorageService.getUser().username;
     this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).
       subscribe(trainer => {
         let pokemon = trainer[0].pokemon; 
