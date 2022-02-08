@@ -21,7 +21,6 @@ export class TrainerService {
   public fetchTrainer(username: string): void {
     if (this.localStorageService.getUser().username == username) {
       this._trainer = this.localStorageService.getUser();
-      console.log(this.localStorageService.getUser())
     } else {
       this.http.get<Trainer[]>(this._url + username).subscribe(
         (trainer: Trainer[]) => {
@@ -68,7 +67,6 @@ export class TrainerService {
         });
       } 
       else{
-        console.log(data.Type)
         this.localStorageService.setUser(data[0])
         this.setTrainer(this.localStorageService.getUser());
       }
