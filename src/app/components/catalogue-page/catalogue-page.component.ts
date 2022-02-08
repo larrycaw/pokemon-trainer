@@ -31,7 +31,7 @@ export class CataloguePageComponent implements OnInit {
   ngOnInit(): void {
     this.pokemonService.fetchPokemonList();
   }
-  //  Fetches url to avatar images for the first 10 pokemon
+  //  Fetches url linking to avatar images for 10 pokemon at a time
   fetchAvatar(): void {
     for (let i = this.pokemonService.getStart(); i < this.pokemonService.getEnd(); i++) {
       const element = this.pokemonList[i];
@@ -46,7 +46,7 @@ export class CataloguePageComponent implements OnInit {
     return this.pokemonService.getPokemonList();
   }
 
-  // A slice of all pokemon array
+  // A slice of all pokemon array, used for pagination
   get pokemonSlice(): Pokemon[] {
     return this.pokemonService.getPokemonSlice()
   }

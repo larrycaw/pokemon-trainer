@@ -7,6 +7,7 @@
 <div *ngIf="pokemonList[0]">
     <div id="pokemons">
         <div *ngFor="let pokemon of pokemonList">
+            <!-- Only show owned pokemon -->
             <div id="pokemoncontainer" *ngIf="pokemon.owned">
                 <h2>{{ pokemon.name}}</h2>
                 <img [src]="pokemon.imgUrl" alt="">
