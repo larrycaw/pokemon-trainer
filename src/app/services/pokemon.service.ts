@@ -86,6 +86,16 @@ export class PokemonService {
     }
   }
 
+  public removePokemon(name: string) {
+    for (let i = 0; i < this._pokemonList.length; i++) {
+      const element = this._pokemonList[i];
+      if (element.name == name) {
+        element.owned = false;
+      }
+      
+    }
+  }
+
   // public getOwned(): Pokemon[] {
   //   let ownedPokemon
   //   for (let i = 0; i < this._pokemonList.length; i++) {
