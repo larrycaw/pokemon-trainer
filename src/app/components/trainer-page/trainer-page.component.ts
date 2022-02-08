@@ -37,9 +37,7 @@ export class TrainerPageComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    // let currentTrainer: string | any = this.localStorage.getUser();
-    // this.trainerService.fetchTrainer(currentTrainer);
-    // this.pokemonService.fetchPokemonList();
+
     for (let i = 0; i < this.pokemonList.length; i++) {
       const element = this.pokemonList[i];
       if (element.owned) {
@@ -56,6 +54,11 @@ export class TrainerPageComponent implements OnInit {
       const element = this.pokemonList[i];
       this.pokemonService.fetchPokemonAvatar(element.name);
     }
+  }
+
+  deletePokemon(name: string): void {
+    this.trainerService.DeleteTrainerPokemon(name);
+    this.pokemonService.removePokemon(name);
   }
 
 

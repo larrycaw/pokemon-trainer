@@ -11,7 +11,7 @@ export class LocalStorageService {
     localStorage.setItem("trainer", JSON.stringify(user));
 }
 
-  getUser(){
+  getUser(): Trainer{
     const user = localStorage.getItem("trainer")
     //console.log(JSON.parse(test!))
     return JSON.parse(user!)
