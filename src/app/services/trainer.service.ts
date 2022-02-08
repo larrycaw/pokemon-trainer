@@ -102,22 +102,26 @@ export class TrainerService {
   //guess you could get the user from localstorage here instead of when calling it?
   //delete from api and update local storage
   public DeleteTrainerPokemon(deletedPokemon: string){
-    let username = this.localStorageService.getUser().username;
-    this.http.get<any>(`https://api-assignment-jt.herokuapp.com/trainers?username=${username}`).
-      subscribe(trainer => {
-        let pokemon = trainer[0].pokemon; 
-        for(let i=0;i<pokemon.length; i++){ 
-          if(pokemon[i] == deletedPokemon){ 
-            pokemon.splice([i], 1);
-            //here you could push the deleted pokemon to array and add in api
-            const headers = this.createHeaders();
-            const body = { pokemon };  
-            this.http.patch<any>(`https://api-assignment-jt.herokuapp.com/trainers/${trainer[0].id}`, 
-            body, { headers }).subscribe(data => {
-                this.localStorageService.setUser(data)
-              });
-          }
-        }
-      })
+
+    let user = this.localStorageService.getUser();
+
+    for (let i = 0; i < user.pokemon.length; i++) {
+      const element = user.pokemon[i];
+      if (element == deletedPokemon) {
+        user.pokemon.splice(i,1);
+      }
+    }
+
+    this.localStorageService.setUser(user);
+    this._trainer = user;
+    let pokemon = this.localStorageService.getUser().pokemon;
+
+    const headers = this.createHeaders();
+    const body = { pokemon };  
+    this.http.patch<any>(`https://api-assignment-jt.herokuapp.com/trainers/${this.localStorageService.getUser().id}`, 
+    body, { headers }).subscribe(data => {
+        this.localStorageService.setUser(data)
+      });
+
   }
 }

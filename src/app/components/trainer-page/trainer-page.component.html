@@ -10,7 +10,7 @@
             <div id="pokemoncontainer" *ngIf="pokemon.owned">
                 <h2>{{ pokemon.name}}</h2>
                 <img [src]="pokemon.imgUrl" alt="">
-                <button>Delete</button>
+                <button (click)="deletePokemon(pokemon.name)">Delete</button>
             </div>
         </div>
     </div>
