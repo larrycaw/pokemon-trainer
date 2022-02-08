@@ -4,8 +4,8 @@
 }
 
 #head button {
-	height: 2em;
-	margin: auto;
+	height: auto;
+	margin: 10px;
 }
 
 #pokemoncontainer {
