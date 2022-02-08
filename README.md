@@ -32,4 +32,5 @@ Open terminal and run ng serve. Navigate to http://localhost:4200
 @TheaGunnarsson
 
 ## Project status
-
+### Known errors: 
+You need to push login button twice to redirect to catalouge page
