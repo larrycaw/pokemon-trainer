@@ -5,21 +5,28 @@
 
 <!-- Checks wether pokemons have been fetched -->
 <div *ngIf="pokemonList[0]">
-    <div *ngIf="!avatarLoaded">
+    <!-- <div *ngIf="!avatarLoaded"> -->
         <!-- Initiates loading of avatar data -->
-        <div *ngIf="fetchAvatar()"></div>
-    </div>
+        <!-- <div *ngIf="fetchAvatar()"></div> -->
+    <!-- </div> -->
 
-    <!-- Checks whether pokemons have been fetched -->
-    <h2>My Pokémon Collection</h2>
-    <div id="pokemons">
-        <div id="pokemoncontainer" *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];"> 
-        <!-- <div id="pokemon" *ngFor="let item of pokemonList; let i = index"> -->
-            <h2>{{ pokemonList[i].name }}</h2>
-            <div *ngIf="pokemonList[i].imgUrl !== undefined">
-                <img [src]="pokemonList[i].imgUrl" alt="" />
-            </div>
-            <button>Delete</button>
+    <div *ngFor="let pokemon of pokemonList">
+        <div *ngIf="pokemon.owned">
+            <h2>{{ pokemon.name}}</h2>
+            <img [src]="pokemon.imgUrl" alt="">
         </div>
     </div>
+
+    <!-- Checks wether pokemons have been fetched -->
+    <!-- <h2>My Pokémon Collection</h2> -->
+    <!-- <div id="pokemons"> -->
+        <!-- <div id="pokemon" *ngFor="let i of [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];">  -->
+        <!-- <div id="pokemon" *ngFor="let item of pokemonList; let i = index"> -->
+            <!-- <h2>{{ pokemonList[i].name }}</h2> -->
+            <!-- <div *ngIf="pokemonList[i].imgUrl !== undefined"> -->
+                <!-- <img [src]="pokemonList[i].imgUrl" alt="" /> -->
+            <!-- </div> -->
+            <!-- <button>Delete</button> -->
+        <!-- </div> -->
+    <!-- </div> -->
 </div>

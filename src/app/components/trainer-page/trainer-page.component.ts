@@ -23,7 +23,7 @@ export class TrainerPageComponent implements OnInit {
     private readonly router : Router,
   ) {}
 
-  get trainer(): Trainer[] {
+  get trainer(): Trainer {
     return this.trainerService.getTrainer();
   }
   
@@ -37,9 +37,17 @@ export class TrainerPageComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    let currentTrainer: string | any = this.localStorage.getUser();
-    this.trainerService.fetchTrainer(currentTrainer);
-    this.pokemonService.fetchPokemonList();
+    // let currentTrainer: string | any = this.localStorage.getUser();
+    // this.trainerService.fetchTrainer(currentTrainer);
+    // this.pokemonService.fetchPokemonList();
+    for (let i = 0; i < this.pokemonList.length; i++) {
+      const element = this.pokemonList[i];
+      if (element.owned) {
+        this.pokemonService.fetchPokemonAvatar(element.name)
+      }
+      
+    }
+
   }
 
   //  Fetches url to avatar images for the first 10 pokemon
@@ -50,11 +58,13 @@ export class TrainerPageComponent implements OnInit {
     }
   }
 
+
+
   toCatalogue(): void {
     this.router.navigateByUrl("/catalogue");
   }
 
   catch(name: string){
-    this.pokemonService.setOwned([name])
+    // this.pokemonService.setOwned([name])
   }
 }
