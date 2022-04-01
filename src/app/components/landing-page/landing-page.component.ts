@@ -32,4 +32,10 @@ export class LandingPageComponent implements OnInit {
     this.trainerService.postTrainer(username);
     this.router.navigateByUrl("/catalogue") 
   }
+  onLoginSubmit(form: NgForm): void{
+    const {username} = form.value;
+    this.localStorageService.username = username;
+    //this.router.navigateByUrl("")
+    console.log(this.localStorageService.username)
+  }
 }
