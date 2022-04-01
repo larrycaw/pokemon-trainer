@@ -1,2 +1,42 @@
-<h1>catalogue</h1>
-<h2 *ngIf="pokemonList[0]">{{ pokemonList[0].name }}</h2>
+<div id="head">
+  <h1>Catalogue</h1>
+  <button (click)="toTrainer()">To Trainer</button>
+</div>
+<!-- Checks wether pokemons have been fetched -->
+<div *ngIf="trainer !== undefined">
+
+  <div *ngIf="pokemonList[0]">
+    <!-- Checks if avatar data has already been loaded to avoid infinite loop, probably an anti-pattern, but it works -->
+    <div *ngIf="!avatarLoaded">
+      <!-- Initiates loading of avatar data -->
+      <div *ngIf="fetchAvatar()"></div>
+    </div>
+  
+    <!-- <div *ngIf="!ownedLoaded">
+      <div *ngIf="fetchOwned()"></div>
+  
+    </div> -->
+    
+    <h2>The Pokémon Catalogue</h2>
+    <div id="pokemons">
+        <!-- Pokemon slice is a set of 10 pokemon, used for pagination -->
+      <div id="pokemoncontainer" *ngFor="let item of pokemonSlice; let i = index">
+        <h2>{{ pokemonSlice[i].name }}</h2>
+        <div *ngIf="pokemonSlice[i].imgUrl !== undefined">
+          <img [src]="pokemonSlice[i].imgUrl" alt="" />
+          <p *ngIf="pokemonSlice[i].owned">Owned</p>
+          <div *ngIf="!pokemonSlice[i].owned">
+            <button (click)="catch(pokemonSlice[i].name)">Catch!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="end < pokemonList.length">
+    <button (click)="next()">Next</button>
+  </div>
+  <div *ngIf="start > 0">
+      <button (click)="prev()">Prev</button>
+  </div>
+  <button (click)="logout()">Log out</button>
+</div>

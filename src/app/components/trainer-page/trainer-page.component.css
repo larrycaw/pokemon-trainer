@@ -1,0 +1,16 @@
+#head {
+	display: grid;
+	grid-template-columns: 60% 40%;
+}
+
+#head button {
+	height: auto;
+	margin: 10px;
+}
+
+#pokemoncontainer {
+	display: inline-block;
+    border-radius: 5px;
+    background-color: #474747;
+	width: 16em;
+}

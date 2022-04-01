@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-import { LocalStorageService } from "src/app/services/local-storage.service"
 import { Router } from "@angular/router";
+import { LocalStorageService } from "src/app/services/local-storage.service";
+import { TrainerService } from "src/app/services/trainer.service";
 
 
 @Component({
@@ -13,10 +14,23 @@ import { Router } from "@angular/router";
 export class LandingPageComponent implements OnInit {
   constructor(
     private localStorageService: LocalStorageService,
-    private router : Router) {}
+    private router : Router,
+    private trainerService: TrainerService
+  ) {}
 
   ngOnInit(): void {
-
+    //if user redirect to catalouge
+    if(this.localStorageService.getUser()!=null){
+      this.trainerService.fetchTrainer(this.localStorageService.getUser().username)
+      this.router.navigateByUrl("/catalogue");
+    }
+  }
+  onLoginSubmit(form: NgForm): void{
+    const {username} = form.value;
+    //save to api
+    //in trainer service local storage sets
+    this.trainerService.postTrainer(username);
+    this.router.navigateByUrl("/catalogue") 
   }
   onLoginSubmit(form: NgForm): void{
     const {username} = form.value;

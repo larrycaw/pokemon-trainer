@@ -1,2 +1,21 @@
-<h1>trainer</h1>
-<h2 *ngIf="trainer[0]">{{ trainer[0].username }}</h2>
+<div id="head">
+    <h1>Trainer</h1>
+    <button (click)="toCatalogue()">The Catalogue</button>
+</div>
+
+<!-- Checks wether pokemons have been fetched -->
+<div *ngIf="pokemonList[0]">
+    <div id="pokemons">
+        <div *ngFor="let pokemon of pokemonList">
+            <!-- Only show owned pokemon -->
+            <div id="pokemoncontainer" *ngIf="pokemon.owned">
+                <h2>{{ pokemon.name}}</h2>
+                <img [src]="pokemon.imgUrl" alt="">
+                <button (click)="deletePokemon(pokemon.name)">Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <button (click)="logout()">Log Out</button>
+</div>
